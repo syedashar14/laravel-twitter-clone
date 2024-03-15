@@ -25,7 +25,7 @@ class IdeaController extends Controller
             'content' => request()->get('content')]
         );
         $idea->save();
-        return redirect()->route('dashboard')->with('ideaCreatedSuccess', 'Idea created successfully');
+        return redirect()->route('dashboard')->with('success', 'Idea created successfully');
     }
 
     public function update (Idea $idea) {

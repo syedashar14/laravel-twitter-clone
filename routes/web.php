@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\ProfileController;
@@ -25,3 +26,4 @@ Route::put('/ideas/{idea}', [IdeaController::class, 'update'])->name('ideas.upda
 Route::get('/terms', function () {
     return view('terms');
 });
+Route::post('/ideas/{idea}/comment', [CommentController::class, 'store'])->name('ideas.comments.store');
