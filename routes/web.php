@@ -31,3 +31,8 @@ Route::post('/ideas/{idea}/comment', [CommentController::class, 'store'])->name(
 
 Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
 Route::post('/register', [AuthController::class, 'store']);
+
+Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'authenticate']);
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
