@@ -3,7 +3,7 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-12 col-sm-8 col-md-6">
-        <form route="{{route('auth.login')}}" class="form mt-5" action="" method="post">
+        <form route="{{route('login')}}" class="form mt-5" action="" method="post">
             @csrf
             <h3 class="text-center text-dark">Login</h3>
             <div class="form-group">

@@ -13,6 +13,9 @@ class IdeaController extends Controller
     }
 
     public function edit (Idea $idea) {
+        if (auth()->user()->id != $idea->user_id) {
+            abort(404, "You are not allowed to edit this Idea");
+        }
         $inEdit = true;
         return view('ideas.show', compact('idea', 'inEdit'));
     }
@@ -21,6 +24,7 @@ class IdeaController extends Controller
         $validated = request()->validate(
             ['content' => 'required|min:5|max:240']
         );
+        $validated['user_id'] = auth()->user()->id;
         // $idea = Idea::create([
         //     'content' => request()->get('content')]
         // );
@@ -30,6 +34,9 @@ class IdeaController extends Controller
     }
 
     public function update (Idea $idea) {
+        if (auth()->user()->id != $idea->user_id) {
+            abort(404, "You are not allowed to update this Idea");
+        }
         $validated = request()->validate(
             ['content' => 'required|min:5|max:240']
         );
@@ -39,8 +46,12 @@ class IdeaController extends Controller
         return redirect()->route('ideas.show', $idea->id)->with('ideaUpdatedSuccess', 'Idea updated successfully');
     }
 
-    public function destroy ($id) {
-        Idea::where('id', $id)->firstOrFail()->delete();
+    public function destroy (Idea $idea) {
+        if (auth()->user()->id != $idea->user_id) {
+            abort(404, "You are not allowed to edit this Idea");
+        }
+        //Idea::where('id', $id)->firstOrFail()->delete();
+        $idea->delete();
         return redirect()->route('dashboard')->with('ideaDeletedSuccess', 'Idea deleted successfully');
     }
 }

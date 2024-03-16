@@ -1,3 +1,4 @@
+@auth
 <h4> Share yours ideas </h4>
 <div class="row">
     <form action = {{route('ideas.create')}} method="post">
@@ -16,3 +17,7 @@
     </form>
 </div>
 <hr>
+@endauth
+@guest
+    <h3> Login to share Ideas </h3>
+@endguest

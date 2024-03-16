@@ -21,7 +21,7 @@
                         <a class="nav-link" href="/profile"> {{Auth::user()->name}} </a>
                     </li>
                     <li class="nav-item">
-                        <form action="{{route('auth.logout')}}" method="POST">
+                        <form action="{{route('logout')}}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-danger btn-sm">Logout</button>
                         </form>
