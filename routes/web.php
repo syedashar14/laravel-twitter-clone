@@ -19,20 +19,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('ideas.show')->middleware('auth');
-Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])->name('ideas.edit')->middleware('auth');
-Route::post('/ideas', [IdeaController::class, 'store'])->name('ideas.create')->middleware('auth');
-Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy'])->name('ideas.destroy')->middleware('auth');
-Route::put('/ideas/{idea}', [IdeaController::class, 'update'])->name('ideas.update')->middleware('auth');
+
+/*Route::group(['prefix' => 'ideas', 'as' => 'ideas.'], function () {
+    //Here you could also use withoutMiddleware method instead of regrouping
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/{idea}', [IdeaController::class, 'show'])->name('show');
+        Route::get('/{idea}/edit', [IdeaController::class, 'edit'])->name('edit');
+    });
+    Route::post('', [IdeaController::class, 'store'])->name('store');
+    Route::delete('/{idea}', [IdeaController::class, 'destroy'])->name('destroy');
+    Route::put('/{idea}', [IdeaController::class, 'update'])->name('update');
+});*/
+
+//Resource grouping alternate for the above route grouping
+Route::resource('ideas', IdeaController::class)->except(['create', 'index', 'show'])->middleware('auth');
+Route::resource('ideas', IdeaController::class)->only(['show']);
+
 Route::get('/terms', function () {
     return view('terms');
 });
-Route::post('/ideas/{idea}/comment', [CommentController::class, 'store'])->name('ideas.comments.store')->middleware('auth');
 
-Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
-Route::post('/register', [AuthController::class, 'store']);
+//Route::post('/ideas/{idea}/comment', [CommentController::class, 'store'])->name('ideas.comments.store')->middleware('auth');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'authenticate']);
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+//Resource grouping alternate for the above route.
+//As we are using the only 1 out of 7 default reouts so we are using the ONLY funciton
+Route::resource('ideas.comments', CommentController::class)->only(['store'])->middleware('auth');
