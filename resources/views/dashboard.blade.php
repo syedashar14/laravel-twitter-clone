@@ -9,15 +9,17 @@
     <div class="col-6">
         @include('shared.success-message')
         @include('shared.share-idea')
-        @foreach ($ideas as $idea)
-        <div class="mt-3">
+        @forelse ($ideas as $idea)
+            <div class="mt-3">
 
-                <div>@include('shared.idea-card')</div>
+                    <div>@include('shared.idea-card')</div>
 
-        </div>
-        @endforeach
+            </div>
+        @empty
+            <p class="text-center mt-4"> No search result </p>
+        @endforelse
         <div class="mt-3"?>
-            {{$ideas->links()}}
+            {{$ideas->withQueryString()->links()}}
         </div>
 
     </div>
