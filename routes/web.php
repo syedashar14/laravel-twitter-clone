@@ -47,3 +47,6 @@ Route::get('/terms', function () {
 Route::resource('ideas.comments', CommentController::class)->only(['store'])->middleware('auth');
 
 Route::resource('users', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
+
+
+Route::get('profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
