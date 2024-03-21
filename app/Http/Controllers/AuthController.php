@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeUserEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -21,11 +23,12 @@ class AuthController extends Controller
             'email' => 'required|unique:users,email|email',
             'password' => 'required|confirmed'
         ]);
-        User::create([
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password'])
         ]);
+        Mail::to($user->email)->send(new WelcomeUserEmail($user));
         return redirect()->route('dashboard')->with('success', 'User created successfully');
     }
 
@@ -42,7 +45,7 @@ class AuthController extends Controller
             request()->session()->regenerate();
             return redirect()->route('dashboard')->with('success', 'Logged in successfully');
         }
-        return redirect()->route('login')->withErrors('error', ['email' => 'Email or Password is incorrect']);
+        return redirect()->route('login')->withErrors(['email' => 'Email or Password is incorrect']);
     }
 
     public function logout () {
