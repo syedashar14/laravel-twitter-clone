@@ -10,6 +10,7 @@
                 </div>
             </div>
             <div>
+                @auth
                 @if (Auth::user()->id == $idea->user->id)
                     <form method="POST" action= {{route('ideas.destroy', $idea->id)}}>
                     @csrf
@@ -21,7 +22,7 @@
                 @else
                     <a href="{{route('ideas.show', $idea->id)}}"> View </a>
                 @endif
-
+                @endauth
             </div>
         </div>
     </div>
@@ -48,10 +49,7 @@
         </p>
     @endif
     <div class="d-flex justify-content-between">
-        <div>
-            <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
-                </span> {{$idea->likes}} </a>
-        </div>
+        @include('ideas.shared.idea-like')
         <div>
             <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
             {{$idea->create_at}} </span>
