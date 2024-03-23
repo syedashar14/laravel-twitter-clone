@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\IdeaController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 /*Route::group(['prefix' => 'ideas', 'as' => 'ideas.'], function () {
     //Here you could also use withoutMiddleware method instead of regrouping
@@ -47,10 +48,14 @@ Route::get('/terms', function () {
 //As we are using the only 1 out of 7 default reouts so we are using the ONLY funciton
 Route::resource('ideas.comments', CommentController::class)->only(['store'])->middleware('auth');
 
-Route::resource('users', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
+Route::resource('users', UserController::class)->only('show');
+Route::resource('users', UserController::class)->only('edit', 'update')->middleware('auth');
 
 
 Route::get('profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
 
 Route::post('users/{user}/follow', [FollowerController::class, 'follow'])->middleware('auth')->name('users.follow');
 Route::post('users/{user}/unfollow', [FollowerController::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
+
+Route::post('ideas/{idea}/like', [LikeController::class, 'like'])->middleware('auth')->name('ideas.like');
+Route::post('ideas/{idea}/unlike', [LikeController::class, 'unlike'])->middleware('auth')->name('ideas.unlike');
