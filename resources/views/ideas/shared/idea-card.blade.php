@@ -11,7 +11,7 @@
             </div>
             <div>
                 @auth
-                @can('idea.edit', $idea)
+                @can('update', $idea)
                     <form method="POST" action= {{route('ideas.destroy', $idea->id)}}>
                         @csrf
                         <a class="mx-3" href="{{route('ideas.edit', $idea->id)}}"> Edit </a>
