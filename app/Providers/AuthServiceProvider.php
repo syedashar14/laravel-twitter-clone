@@ -35,13 +35,13 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         //Permission based Gate
-        Gate::define('idea.edit', function (User $user, Idea $idea) {
-            return (bool) ($user->is_admin || $idea->user_id == $user->id);
-        });
+        // Gate::define('idea.edit', function (User $user, Idea $idea) {
+        //     return (bool) ($user->is_admin || $idea->user_id == $user->id);
+        // });
 
-        //Permission based Gate
-        Gate::define('idea.delete', function (User $user, Idea $idea) {
-            return (bool) ($user->is_admin || $idea->user_id == $user->id);
-        });
+        // //Permission based Gate
+        // Gate::define('idea.delete', function (User $user, Idea $idea) {
+        //     return (bool) ($user->is_admin || $idea->user_id == $user->id);
+        // });
     }
 }

@@ -18,9 +18,11 @@ class IdeaController extends Controller
         //     abort(404, "You are not allowed to edit this Idea");
         // }
         //Using permission gate with allow instead of simple checks
+        //Now using policies instead of gates
         if (!Gate::allows('idea.edit', $idea)) {
             abort(404, "You are not allowed to edit this Idea");
         }
+
         $inEdit = true;
         return view('ideas.show', compact('idea', 'inEdit'));
     }
@@ -60,7 +62,7 @@ class IdeaController extends Controller
         //     abort(404, "You are not allowed to edit this Idea");
         // }
         //Using other syntax of using gate
-        $this->authorize('idea.delete', $idea);
+        $this->authorize('delete', $idea);
 
         //Idea::where('id', $id)->firstOrFail()->delete();
         $idea->delete();
