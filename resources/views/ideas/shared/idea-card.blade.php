@@ -11,17 +11,15 @@
             </div>
             <div>
                 @auth
-                @if (Auth::user()->id == $idea->user->id)
+                @can('idea.edit', $idea)
                     <form method="POST" action= {{route('ideas.destroy', $idea->id)}}>
-                    @csrf
-                    <a class="mx-3" href="{{route('ideas.edit', $idea->id)}}"> Edit </a>
-                    @method('delete')
-                    <a href="{{route('ideas.show', $idea->id)}}"> View </a>
-                    <button class="ms-1 btn btn-danger btn-sm"> X </button>
+                        @csrf
+                        <a class="mx-3" href="{{route('ideas.edit', $idea->id)}}"> Edit </a>
+                        @method('delete')
+                        <a href="{{route('ideas.show', $idea->id)}}"> View </a>
+                        <button class="ms-1 btn btn-danger btn-sm"> X </button>
                     </form>
-                @else
-                    <a href="{{route('ideas.show', $idea->id)}}"> View </a>
-                @endif
+                @endcan
                 @endauth
             </div>
         </div>
