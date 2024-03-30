@@ -12,10 +12,11 @@
 
                 </div>
             </div>
-
-            <div>
-                <a href="{{ route('users.edit', $user->id) }}"> Edit </a>
-            </div>
+            @can('update', $user)
+                <div>
+                    <a href="{{ route('users.edit', $user->id) }}"> Edit </a>
+                </div>
+            @endcan
 
         </div>
         <div class="px-2 mt-4">
@@ -26,7 +27,7 @@
             </p>
             @include('users.shared.user-stats')
             @auth
-                @if (Auth::id() !== $user->id)
+                @if (Auth::user()->isNot($user))
                     @if (Auth::user()->follows($user))
                     <form method="post" action="{{route('users.unfollow', $user->id)}}">
                         @csrf

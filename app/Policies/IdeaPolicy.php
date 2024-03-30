@@ -19,7 +19,8 @@ class IdeaPolicy
      */
     public function update(User $user, Idea $idea)
     {
-        return (bool) ($user->is_admin || $idea->user_id == $user->id);
+        //return (bool) ($user->is_admin || $idea->user_id == $user->id);
+        return (bool) ($user->is_admin || $user->is($idea->user));
     }
 
     /**
