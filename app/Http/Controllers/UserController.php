@@ -16,15 +16,17 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         $ideas = $user->ideas()->paginate(5);
         return view('users.edit', compact('user', 'ideas'));
     }
 
     public function update(User $user)
     {
-        if (auth()->user()->id != $user->id) {
-            abort(404, "You are not allowed to update this Idea");
-        }
+        // if (auth()->user()->id != $user->id) {
+        //     abort(404, "You are not allowed to update this Idea");
+        // }
+        $this->authorize('update', $user);
         $validated = request()->validate(
             [
                 'image' => 'image',
