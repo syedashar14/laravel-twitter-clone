@@ -22,7 +22,7 @@ env:
   ECS_TASK_DEFINITION: laravel-twitter-clone-task-definition.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: laravel-twitter-clone           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition.
+                                               # containerDefinitions section of your task definition
 
 jobs:
   deploy:
