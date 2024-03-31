@@ -15,7 +15,7 @@ on:
       - main
 
 env:
-  AWS_REGION: us-east-2                   # set this to your preferred AWS region, e.g. us-west-1
+  AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: laravel-twitter-clone           # set this to your Amazon ECR repository name
   ECS_SERVICE: laravel-twitter-clone                 # set this to your Amazon ECS service name
   ECS_CLUSTER: laravel-twitter-clone                 # set this to your Amazon ECS cluster name
@@ -44,6 +44,12 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
+
+      - name: Debug Info
+        run: |
+          echo "ECR_REGISTRY: $ECR_REGISTRY"
+          echo "ECR_REPOSITORY: $ECR_REPOSITORY"
+          aws ecr describe-repositories --repository-names $ECR_REPOSITORY --region $AWS_REGION
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
