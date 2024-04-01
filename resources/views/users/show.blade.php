@@ -1,5 +1,5 @@
 @extends('layout.layout')
-
+@section('title', $user->name)
 @include('layout.nav')
 @section('content')
 <div class="row">

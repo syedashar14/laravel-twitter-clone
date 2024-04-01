@@ -1,4 +1,5 @@
 @extends('layout.layout')
+@section('title', 'Register')
 @include('layout.nav')
 @section('content')
 <div class="row justify-content-center">
