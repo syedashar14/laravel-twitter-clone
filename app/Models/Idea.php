@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,5 +34,11 @@ class Idea extends Model
 
     public function likes () {
         return $this->belongsToMany(User::class, 'idea_like')->withTimestamps();// here idea_id & like_id will automatically be detected
+    }
+
+    //Defining scope for the Dashboard & Feed pages search
+    //This scope can be called as function "search"
+    public function scopeSearch(Builder $query, $search = '') {
+        $query->where('content', 'like', '%' . $search . '%');
     }
 }
