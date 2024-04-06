@@ -19,7 +19,7 @@ class DashboardController extends Controller
         }
         return view('dashboard', [
             //'ideas' => Idea::orderBy('created_at', 'DESC')->get() -- Will get all records
-            'ideas' => $ideas
+            'ideas' => $ideas->paginate(5)
         ]);
 
         //Following code will not work as it is after return
