@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section('title', 'Admin Panel')
+@section('title', 'Users | Admin Panel')
 @include('layout.nav')
 @section('content')
 <div class="row">
