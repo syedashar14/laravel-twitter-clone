@@ -14,16 +14,22 @@ services:
     image: mysql:8.0
     container_name: Database
     environment:
-      MYSQL_DATABASE: "${DB_DATABASE}"
-      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_DATABASE: "ideas"
+      MYSQL_USER: "root"
       MYSQL_ROOT: "root"
-      MYSQL_PASSWORD: "${DB_PASSWORD}"
-      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_PASSWORD: "123"
+      MYSQL_ROOT_PASSWORD: "123"
+    # environment:
+    #   MYSQL_DATABASE: "${DB_DATABASE}"
+    #   MYSQL_USER: "${DB_USERNAME}"
+    #   MYSQL_ROOT: "root"
+    #   MYSQL_PASSWORD: "${DB_PASSWORD}"
+    #   MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
     volumes:
       - db:/var/lib/mysql
     ports:
-      - 3307:3306
-  
+      - 3306:3306
+
   main:
     container_name: Serve
     build:
