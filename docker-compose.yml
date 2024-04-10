@@ -14,17 +14,11 @@ services:
     image: mysql:8.0
     container_name: Database
     environment:
-      MYSQL_DATABASE: "ideas"
-      MYSQL_USER: "root"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
       MYSQL_ROOT: "root"
-      MYSQL_PASSWORD: "123"
-      MYSQL_ROOT_PASSWORD: "123"
-    # environment:
-    #   MYSQL_DATABASE: "${DB_DATABASE}"
-    #   MYSQL_USER: "${DB_USERNAME}"
-    #   MYSQL_ROOT: "root"
-    #   MYSQL_PASSWORD: "${DB_PASSWORD}"
-    #   MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
     volumes:
       - db:/var/lib/mysql
     ports:
@@ -35,7 +29,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: sh -c "while ! mysqladmin ping -hdb --silent; do sleep 1; done && php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0"
+    #command: sh -c "while ! mysqladmin ping -hdb --silent; do sleep 1; done && php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0"
     volumes:
       - .:/app
     ports:
