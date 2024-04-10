@@ -24,19 +24,6 @@ services:
     ports:
       - 3307:3306
 
-  main:
-    container_name: Serve
-    build:
-      context: .
-      dockerfile: Dockerfile
-    #command: sh -c "while ! mysqladmin ping -hdb --silent; do sleep 1; done && php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0"
-    volumes:
-      - .:/app
-    ports:
-      - 8080:8000
-    depends_on:
-      - db
-
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: PhpMyAdmin
@@ -56,6 +43,19 @@ services:
     ports:
       - "1026:1025"
       - "8026:8025"
+
+  main:
+      container_name: Serve
+      build:
+      context: .
+      dockerfile: Dockerfile
+      command: sh -c "while ! mysqladmin ping -hdb --silent; do sleep 1; done && php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0"
+      volumes:
+      - .:/app
+      ports:
+      - 8080:8000
+      depends_on:
+      - db
 
 volumes:
   db:
