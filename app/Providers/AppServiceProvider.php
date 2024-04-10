@@ -32,11 +32,11 @@ class AppServiceProvider extends ServiceProvider
         //\Debugbar::enable();
 
         //Cahing the topUsers results
-        $topUsers = Cache::remember('topUsers', now()->addHours(1), function () {
-            return User::withCount('ideas')
-            ->orderBy('ideas_count', 'DESC')
-            ->limit(5)->get();
-        });
-        view()->share('topUsers', $topUsers);
+        // $topUsers = Cache::remember('topUsers', now()->addHours(1), function () {
+        //     return User::withCount('ideas')
+        //     ->orderBy('ideas_count', 'DESC')
+        //     ->limit(5)->get();
+        // });
+        view()->share('topUsers', $topUsers ?? []);
     }
 }
