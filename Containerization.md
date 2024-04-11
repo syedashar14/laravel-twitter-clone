@@ -5,6 +5,8 @@ Issues faced during containerizing the application:
 - I developed a cahe feature in my app which chaces the top 5 users, during the build process of docker image
 docker was trying to query that part as it might not have found in the cache. As db was not setup during build so the build process
 was being failed. (Need to check why it was this behavior and how to solve it)
+- After complete success ful deployement, containers were created by deployment but not accessible from web and any port. I allowed all 
+input traffic to the container via security group but nothing happened.
 
 
 Questions:
