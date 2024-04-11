@@ -1,0 +1,86 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:905418235172:task-definition/laravel-twitter-taskdef:1",
+    "containerDefinitions": [
+        {
+            "name": "laraver-twitter",
+            "image": "905418235172.dkr.ecr.us-east-1.amazonaws.com/my-app-repo:30d4ae924f1312c6302efc2ddad942d63e066c21",
+            "cpu": 1024,
+            "memory": 4096,
+            "memoryReservation": 2048,
+            "portMappings": [
+                {
+                    "name": "laravel-web-access-port",
+                    "containerPort": 8000,
+                    "hostPort": 8000,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                },
+                {
+                    "name": "mailhog-port",
+                    "containerPort": 8025,
+                    "hostPort": 8025,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                },
+                {
+                    "name": "phpmyadmin-port",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "systemControls": []
+        }
+    ],
+    "family": "laravel-twitter-taskdef",
+    "taskRoleArn": "arn:aws:iam::905418235172:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::905418235172:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 1,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "4096",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2024-04-11T05:48:44.631Z",
+    "registeredBy": "arn:aws:iam::905418235172:root",
+    "tags": []
+}

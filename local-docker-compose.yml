@@ -22,7 +22,7 @@ services:
     volumes:
       - db:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 3307:3306
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -35,14 +35,14 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     ports:
-      - 80:80
+      - 8081:80
 
   mailpit:
     image: axllent/mailpit
     container_name: MailPit
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - "1026:1025"
+      - "8026:8025"
 
   main:
       container_name: Serve
@@ -53,7 +53,7 @@ services:
       volumes:
       - .:/app
       ports:
-      - 8000:8000
+      - 8080:8000
       depends_on:
       - db
 
